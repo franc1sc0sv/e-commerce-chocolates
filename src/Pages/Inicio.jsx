@@ -1,10 +1,11 @@
-import { Header } from "../Components/Header"
+import HomeLayout from "../layout/HomeLayout"
 
 export const Inicio = () => {
     return (
-        <>
-            <Header />
-            <p>YOU ARE IN INICIO</p>
-        </>
+        <HomeLayout>
+            <div>
+                
+            </div>
+        </HomeLayout>
     )
 }
