@@ -1,0 +1,10 @@
+{
+  "id": "5",
+  "nombre": "Francisco Josue",
+  "email": "correo@correo.com",
+  "password": "$2y$10$UGXlDRycw.IT5akdTlQFgOTpaWKR1XqG.9vtO9tB1grwzIn0i1Sx.",
+  "rol": "usuario",
+  "token": "9de3affac3081ef1",
+  "direccion": "mi casa",
+  "telefono": "506203698574"
+}

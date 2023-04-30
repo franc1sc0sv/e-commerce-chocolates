@@ -8,7 +8,6 @@ const FORM_STATE = {
       dirty: false,
       value: {
         name: "",
-        username: "",
         email: "",
         password: "",
       },
@@ -23,15 +22,6 @@ const FORM_STATE = {
     },
   },
 };
-
-const FORM_STEPS = [
-  {
-    label: `Details`,
-  },
-  {
-    label: `Data`,
-  },
-];
 
 export const RegisterContext = createContext();
 

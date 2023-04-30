@@ -12,6 +12,10 @@ import { FeedBack } from "./Pages/FeedBack.jsx";
 import { Carrito } from "./Pages/Carrito";
 import { Registro } from "./Pages/Registro";
 
+import { UnprotectedRoute } from "./layout/UnprotectedRoute";
+
+import { AuthProvider } from "./context/AuthContext";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -19,7 +23,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/iniciarSesion",
-    element: <IniciarSesion />,
+    element: (
+      <UnprotectedRoute>
+        <IniciarSesion />
+      </UnprotectedRoute>
+    ),
+  },
+  {
+    path: "/registro",
+    element: (
+      <UnprotectedRoute>
+        <Registro />
+      </UnprotectedRoute>
+    ),
   },
   {
     path: "/chocolates",
@@ -37,12 +53,10 @@ const router = createBrowserRouter([
     path: "/carrito",
     element: <Carrito />,
   },
-  {
-    path: "/registro",
-    element: <Registro />,
-  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <AuthProvider>
+    <RouterProvider router={router} />
+  </AuthProvider>
 );

@@ -1,12 +1,14 @@
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 import { InputText } from "../Components/InputText";
 import { InputPassword } from "../Components/InputPassword";
 import { FormsLayout } from "../layout/FormsLayout";
 import { ButtonsForms } from "../Components/ButtonsForms";
-import { Link } from "react-router-dom";
+
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+
+import { useLogin } from "../hooks/useLogin";
 
 export const IniciarSesion = () => {
   return (
@@ -19,9 +21,14 @@ export const IniciarSesion = () => {
 
 const Formulario = () => {
   const { handleSubmit, control } = useForm();
+  const { error, isLoading, loginProcess } = useLogin();
+  const navigate = useNavigate();
+
   const succesSubmit = (data) => {
-    console.log(data);
+    loginProcess({ datos: data });
+    navigate("/");
   };
+
   return (
     <form
       className="flex flex-col items-center justify-center w-[100%] gap-5"
@@ -35,14 +42,9 @@ const Formulario = () => {
         control={control}
       />
 
-      <InputPassword
-        Icon={LockOutlinedIcon}
-        text="Contraseña"
-        name="password"
-        control={control}
-      />
+      <InputPassword control={control} />
 
-      <ButtonsForms />
+      <ButtonsForms isLoading={isLoading} />
     </form>
   );
 };

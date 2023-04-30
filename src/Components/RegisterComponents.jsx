@@ -14,12 +14,21 @@ import { useContext, useEffect } from "react";
 import { RegisterContext } from "../context/RegisterContext";
 import { useForm, useFormState } from "react-hook-form";
 
-const AccountCreated = () => {
-  return (
-    <div className="flex flex-col items-center justify-center w-[100%] gap-5">
-      <p>Congratulations your account has been created</p>
-    </div>
-  );
+import { nanoid } from "nanoid";
+
+import { registerUser } from "../api/auth";
+
+const PreparacionDatosRegistro = async ({ usuario }) => {
+  const datos = {
+    email: usuario.steps.details.value.email,
+    nombre: usuario.steps.details.value.name,
+    password: usuario.steps.details.value.password,
+    direccion: usuario.steps.extraData.value.adress,
+    telefono: usuario.steps.extraData.value.phone,
+  };
+
+  const response = await registerUser({ datos });
+  console.log(response);
 };
 
 const FormDetails = () => {
@@ -30,36 +39,24 @@ const FormDetails = () => {
   const { isDirty, errors } = useFormState({ control });
 
   useEffect(() => {
-    setForm((prevState) => ({
-      ...prevState,
-      steps: {
-        ...prevState.steps,
-        details: {
-          ...prevState.steps.details,
-          dirty: isDirty,
-        },
-      },
-    }));
+    const formCopy = { ...form };
+    formCopy.steps.details.dirty = isDirty;
+
+    setForm(() => formCopy);
   }, [isDirty, setForm]);
 
   const formSucces = (data) => {
-    setForm((prevState) => ({
-      selectedIndex: form.selectedIndex + 1,
-      steps: {
-        ...prevState.steps,
-        details: {
-          ...prevState.steps.details,
-          valid: true,
-          dirty: false,
-          value: {
-            name: data.name,
-            username: data.username,
-            email: data.email,
-            password: data.password,
-          },
-        },
-      },
-    }));
+    const formCopy = { ...form };
+
+    formCopy.selectedIndex = form.selectedIndex + 1;
+    formCopy.steps.details.valid = true;
+    formCopy.steps.details.dirty = false;
+
+    formCopy.steps.details.value.name = data.name;
+    formCopy.steps.details.value.email = data.email;
+    formCopy.steps.details.value.password = data.password;
+
+    setForm(() => formCopy);
   };
   return (
     <form
@@ -73,13 +70,7 @@ const FormDetails = () => {
         name="name"
         control={control}
       />
-      <InputText
-        Icon={PersonIcon}
-        placeHolder="pepitoOn60Hz"
-        text="Nombre de usuario"
-        name="username"
-        control={control}
-      />
+
       <InputText
         Icon={PersonIcon}
         placeHolder="pepitoxD@gmail.com"
@@ -102,16 +93,10 @@ const FormExtraData = () => {
   const { isDirty, errors } = useFormState({ control });
 
   useEffect(() => {
-    setForm((prevState) => ({
-      ...prevState,
-      steps: {
-        ...prevState.steps,
-        extraData: {
-          ...prevState.steps.details,
-          dirty: isDirty,
-        },
-      },
-    }));
+    const formCopy = { ...form };
+    formCopy.steps.extraData.dirty = isDirty;
+
+    setForm(() => formCopy);
   }, [isDirty, setForm]);
 
   const formSucces = (data) => {
@@ -120,21 +105,18 @@ const FormExtraData = () => {
       return;
     }
 
-    setForm((prevState) => ({
-      selectedIndex: form.selectedIndex + 1,
-      steps: {
-        ...prevState.steps,
-        extraData: {
-          valid: true,
-          dirty: false,
-          ...prevState.steps.details,
-          value: {
-            adress: data.adress,
-            phone: data.phone,
-          },
-        },
-      },
-    }));
+    const formCopy = { ...form };
+
+    formCopy.selectedIndex = form.selectedIndex + 1;
+    formCopy.steps.extraData.valid = true;
+    formCopy.steps.extraData.dirty = false;
+
+    formCopy.steps.extraData.value.adress = data.adress;
+    formCopy.steps.extraData.value.phone = data.phone;
+
+    setForm(() => formCopy);
+
+    PreparacionDatosRegistro({ usuario: formCopy });
   };
 
   return (
@@ -159,6 +141,14 @@ const FormExtraData = () => {
 
       <ButtonsForms />
     </form>
+  );
+};
+
+const AccountCreated = () => {
+  return (
+    <div className="flex flex-col items-center justify-center w-[100%] gap-5">
+      <p>Congratulations your account has been created</p>
+    </div>
   );
 };
 

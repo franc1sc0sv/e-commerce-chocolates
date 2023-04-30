@@ -1,4 +1,3 @@
-import { ButtonsForms } from "../Components/ButtonsForms";
 import { FormsLayout } from "../layout/FormsLayout";
 import {
   Back,
@@ -9,15 +8,11 @@ import {
 
 import { RegisterProvider } from "../context/RegisterContext";
 
-import { useState } from "react";
-
 export const Registro = () => {
-  const [partForm, setPartForm] = useState(1);
-
   return (
     <>
       <RegisterProvider>
-        <FormsLayout h={"600px"} text={"Crea tu cuenta"}>
+        <FormsLayout h={"550px"} text={"Crea tu cuenta"}>
           <Back />
           <BarraProgresiva />
           <MultiStepsContainer />

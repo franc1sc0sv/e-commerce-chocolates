@@ -8,6 +8,7 @@ export default {
         secundary: "#5E6366",
         placeHolder: "#ABAFB1",
         progresiveBar: "#E2E6F9",
+        danger: "#F57E77",
       },
     },
     fontFamily: {
