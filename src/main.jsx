@@ -1,15 +1,16 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
 
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { IniciarSesion } from './Pages/IniciarSesion.jsx'
-import { Inicio } from './Pages/Inicio.jsx'
-import { Chocolates } from './Pages/Chocolates.jsx'
-import { Cajas } from './Pages/Cajas.jsx'
-import { FeedBack } from './Pages/FeedBack.jsx'
-import { Carrito } from './Pages/Carrito'
+import { IniciarSesion } from "./Pages/IniciarSesion.jsx";
+import { Inicio } from "./Pages/Inicio.jsx";
+import { Chocolates } from "./Pages/Chocolates.jsx";
+import { Cajas } from "./Pages/Cajas.jsx";
+import { FeedBack } from "./Pages/FeedBack.jsx";
+import { Carrito } from "./Pages/Carrito";
+import { Registro } from "./Pages/Registro";
 
 const router = createBrowserRouter([
   {
@@ -17,26 +18,31 @@ const router = createBrowserRouter([
     element: <Inicio />,
   },
   {
-    path: "/IniciarSesion",
+    path: "/iniciarSesion",
     element: <IniciarSesion />,
   },
   {
-    path: "/Chocolates",
+    path: "/chocolates",
     element: <Chocolates />,
   },
   {
-    path: "/Cajas",
+    path: "/cajas",
     element: <Cajas />,
   },
   {
-    path: "/FeedBack",
+    path: "/feedBack",
     element: <FeedBack />,
   },
   {
-    path: "/Carrito",
+    path: "/carrito",
     element: <Carrito />,
   },
-])
+  {
+    path: "/registro",
+    element: <Registro />,
+  },
+]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(<RouterProvider router={router} />
-)
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <RouterProvider router={router} />
+);
