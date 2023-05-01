@@ -11,12 +11,23 @@ import { Cajas } from "./Pages/Cajas.jsx";
 import { FeedBack } from "./Pages/FeedBack.jsx";
 import { Carrito } from "./Pages/Carrito";
 import { Registro } from "./Pages/Registro";
+import { Admin } from "./Pages/admin";
 
 import { UnprotectedRoute } from "./layout/UnprotectedRoute";
+import { ProtectedRouteAdmin } from "./layout/ProtectedRouteAdmin";
 
 import { AuthProvider } from "./context/AuthContext";
+import { AlertsProvider } from "./context/AlertsContext";
 
 const router = createBrowserRouter([
+  {
+    path: "/admin",
+    element: (
+      <ProtectedRouteAdmin>
+        <Admin />
+      </ProtectedRouteAdmin>
+    ),
+  },
   {
     path: "/",
     element: <Inicio />,
@@ -57,6 +68,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <AuthProvider>
-    <RouterProvider router={router} />
+    <AlertsProvider>
+      <RouterProvider router={router} />
+    </AlertsProvider>
   </AuthProvider>
 );

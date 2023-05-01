@@ -5,10 +5,13 @@ import { InputPassword } from "../Components/InputPassword";
 import { FormsLayout } from "../layout/FormsLayout";
 import { ButtonsForms } from "../Components/ButtonsForms";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import { useLogin } from "../hooks/useLogin";
+
+import { AlertsContext } from "../context/AlertsContext";
+import { useContext, useEffect } from "react";
 
 export const IniciarSesion = () => {
   return (
@@ -20,14 +23,23 @@ export const IniciarSesion = () => {
 };
 
 const Formulario = () => {
+  const { setOpen, setSeverity, setMessage } = useContext(AlertsContext);
+
   const { handleSubmit, control } = useForm();
+
   const { error, isLoading, loginProcess } = useLogin();
-  const navigate = useNavigate();
 
   const succesSubmit = (data) => {
     loginProcess({ datos: data });
-    navigate("/");
   };
+
+  useEffect(() => {
+    if (error && !isLoading) {
+      setOpen(true);
+      setMessage(error);
+      setSeverity("warning");
+    }
+  }, [isLoading, error]);
 
   return (
     <form

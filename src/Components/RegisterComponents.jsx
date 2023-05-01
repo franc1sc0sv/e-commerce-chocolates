@@ -9,46 +9,27 @@ import { InputPassword } from "../Components/InputPassword";
 import { ButtonsForms } from "../Components/ButtonsForms";
 
 import { Link } from "react-router-dom";
+import { useForm, useFormState } from "react-hook-form";
 
 import { useContext, useEffect } from "react";
 import { RegisterContext } from "../context/RegisterContext";
-import { useForm, useFormState } from "react-hook-form";
+import { AlertsContext } from "../context/AlertsContext";
 
-import { nanoid } from "nanoid";
-
-import { registerUser } from "../api/auth";
-
-const PreparacionDatosRegistro = async ({ usuario }) => {
-  const datos = {
-    email: usuario.steps.details.value.email,
-    nombre: usuario.steps.details.value.name,
-    password: usuario.steps.details.value.password,
-    direccion: usuario.steps.extraData.value.adress,
-    telefono: usuario.steps.extraData.value.phone,
-  };
-
-  const response = await registerUser({ datos });
-  console.log(response);
-};
+import { useRegister } from "../hooks/useRegister";
+// import { registerUser } from "../api/auth";
+// import { useState } from "react";
 
 const FormDetails = () => {
   const { form, setForm } = useContext(RegisterContext);
 
   const { handleSubmit, control } = useForm();
 
-  const { isDirty, errors } = useFormState({ control });
-
-  useEffect(() => {
-    const formCopy = { ...form };
-    formCopy.steps.details.dirty = isDirty;
-
-    setForm(() => formCopy);
-  }, [isDirty, setForm]);
+  const { errors } = useFormState({ control });
 
   const formSucces = (data) => {
     const formCopy = { ...form };
 
-    formCopy.selectedIndex = form.selectedIndex + 1;
+    formCopy.selectedIndex = 1;
     formCopy.steps.details.valid = true;
     formCopy.steps.details.dirty = false;
 
@@ -87,27 +68,28 @@ const FormDetails = () => {
 
 const FormExtraData = () => {
   const { form, setForm } = useContext(RegisterContext);
-  const isValidLastForm = form.steps.details.valid;
-  const { handleSubmit, control } = useForm();
+  const { setOpen, setSeverity, setMessage } = useContext(AlertsContext);
+  const { isLoading, error, registerProceso, isValidLastForm } = useRegister();
 
-  const { isDirty, errors } = useFormState({ control });
+  const { handleSubmit, control } = useForm();
+  const { errors } = useFormState({ control });
 
   useEffect(() => {
-    const formCopy = { ...form };
-    formCopy.steps.extraData.dirty = isDirty;
-
-    setForm(() => formCopy);
-  }, [isDirty, setForm]);
+    if (error && !isLoading) {
+      setOpen(true);
+      setMessage(error);
+      setSeverity("warning");
+    }
+  }, [isLoading, error]);
 
   const formSucces = (data) => {
     if (!isValidLastForm) {
       console.log("CHISTOSO");
       return;
     }
-
     const formCopy = { ...form };
+    formCopy.selectedIndex = 1;
 
-    formCopy.selectedIndex = form.selectedIndex + 1;
     formCopy.steps.extraData.valid = true;
     formCopy.steps.extraData.dirty = false;
 
@@ -116,7 +98,7 @@ const FormExtraData = () => {
 
     setForm(() => formCopy);
 
-    PreparacionDatosRegistro({ usuario: formCopy });
+    registerProceso({ data });
   };
 
   return (
@@ -139,35 +121,26 @@ const FormExtraData = () => {
         control={control}
       />
 
-      <ButtonsForms />
+      <ButtonsForms isLoading={isLoading} />
     </form>
   );
 };
 
-const AccountCreated = () => {
-  return (
-    <div className="flex flex-col items-center justify-center w-[100%] gap-5">
-      <p>Congratulations your account has been created</p>
-    </div>
-  );
-};
-
 export const MultiStepsContainer = () => {
-  const { form, setForm } = useContext(RegisterContext);
+  const { form } = useContext(RegisterContext);
   const selectedIndex = form.selectedIndex;
-  const translate = ["0", "-33.33%", "-66.66%"];
+  const translate = ["0", "-50%"];
 
   return (
     <>
       <div className="w-full overflow-hidden ">
         <div
-          className="w-[300%] flex justify-center items-center transition-all ease-in-out duration-200"
+          className="w-[200%] flex justify-center items-center transition-all ease-in-out duration-200"
           style={{ transform: `translateX(${translate[selectedIndex]})` }}
         >
           <FormDetails />
 
           <FormExtraData />
-          <AccountCreated />
         </div>
       </div>
     </>

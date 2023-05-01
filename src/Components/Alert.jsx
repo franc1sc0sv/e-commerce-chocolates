@@ -1,30 +1,29 @@
-import Alert from "@mui/material/Alert";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
+import { useContext } from "react";
+import Snackbar from "@mui/material/Snackbar";
+import { Alert } from "@mui/material";
+import { AlertsContext } from "../context/AlertsContext";
 
-export const AlertNotification = ({ open, message, severity }) => {
+export default function CustomizedSnackbars() {
+  const { open, setOpen, message, severity } = useContext(AlertsContext);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   return (
-    open && (
+    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
       <Alert
         variant="outlined"
+        onClose={handleClose}
         severity={severity}
-        action={
-          <IconButton
-            aria-label="close"
-            color="inherit"
-            size="small"
-            onClick={() => {
-              setOpen(false);
-              setSeverity("");
-              SetMessage("");
-            }}
-          >
-            <CloseIcon fontSize="inherit" />
-          </IconButton>
-        }
+        sx={{ width: "100%" }}
       >
         {message}
       </Alert>
-    )
+    </Snackbar>
   );
-};
+}
