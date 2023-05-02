@@ -1,0 +1,88 @@
+{
+  "chocolates": [
+    {
+      "id": 1,
+      "nombre": "Chocolates con leche",
+      "precio": 3.99,
+      "imagen": "https://ejemplo.com/chocolates_leche.jpg",
+      "marca": "Lindt"
+    },
+    {
+      "id": 2,
+      "nombre": "Chocolates oscuros",
+      "precio": 4.99,
+      "imagen": "https://ejemplo.com/chocolates_oscuros.jpg",
+      "marca": "Ghirardelli"
+    },
+    {
+      "id": 3,
+      "nombre": "Chocolates blancos",
+      "precio": 2.49,
+      "imagen": "https://ejemplo.com/chocolates_blancos.jpg",
+      "marca": "Godiva"
+    },
+    {
+      "id": 4,
+      "nombre": "Chocolates rellenos de avellanas",
+      "precio": 5.99,
+      "imagen": "https://ejemplo.com/chocolates_avellanas.jpg",
+      "marca": "Ferrero Rocher"
+    },
+    {
+      "id": 5,
+      "nombre": "Chocolates de menta",
+      "precio": 3.29,
+      "imagen": "https://ejemplo.com/chocolates_menta.jpg",
+      "marca": "Andes"
+    },
+    {
+      "id": 6,
+      "nombre": "Chocolates de fresa",
+      "precio": 3.99,
+      "imagen": "https://ejemplo.com/chocolates_fresa.jpg",
+      "marca": "Hershey's"
+    },
+    {
+      "id": 7,
+      "nombre": "Chocolates de naranja",
+      "precio": 3.49,
+      "imagen": "https://ejemplo.com/chocolates_naranja.jpg",
+      "marca": "Nestlé"
+    },
+    {
+      "id": 8,
+      "nombre": "Chocolates con almendras",
+      "precio": 4.99,
+      "imagen": "https://ejemplo.com/chocolates_almendras.jpg",
+      "marca": "Cadbury"
+    },
+    {
+      "id": 9,
+      "nombre": "Chocolates de coco",
+      "precio": 3.79,
+      "imagen": "https://ejemplo.com/chocolates_coco.jpg",
+      "marca": "Mars"
+    },
+    {
+      "id": 10,
+      "nombre": "Chocolates de café",
+      "precio": 4.29,
+      "imagen": "https://ejemplo.com/chocolates_cafe.jpg",
+      "marca": "Perugina"
+    },
+    {
+      "id": 11,
+      "nombre": "Chocolates con pistachos",
+      "precio": 6.49,
+      "imagen": "https://ejemplo.com/chocolates_pistachos.jpg",
+      "marca": "Milka"
+    },
+    {
+      "id": 12,
+      "nombre": "Chocolates con cerezas",
+      "precio": 4.99,
+      "imagen": "https://ejemplo.com/chocolates_cerezas.jpg",
+      "marca": "Toblerone"
+    }
+  ]
+}

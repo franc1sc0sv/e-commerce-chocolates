@@ -18,6 +18,7 @@ import { ProtectedRouteAdmin } from "./layout/ProtectedRouteAdmin";
 
 import { AuthProvider } from "./context/AuthContext";
 import { AlertsProvider } from "./context/AlertsContext";
+import { FiltersChocolatesProvider } from "./context/FiltersChocolatesContext";
 
 const router = createBrowserRouter([
   {
@@ -50,7 +51,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/chocolates",
-    element: <Chocolates />,
+    element: (
+      <FiltersChocolatesProvider>
+        <Chocolates />
+      </FiltersChocolatesProvider>
+    ),
   },
   {
     path: "/cajas",
