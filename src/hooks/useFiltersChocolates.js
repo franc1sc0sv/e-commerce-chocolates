@@ -28,11 +28,26 @@ const filterByPriceMinMax = ({ chocolates, valuePrice }) => {
   });
 };
 
+const filterByFav = ({ chocolates }) => {
+  return chocolates.sort(compararBooleanos);
+};
+
+function compararBooleanos(a, b) {
+  if (a.favorite === b.favorite) {
+    return 0;
+  } else if (a.favorite) {
+    return -1;
+  } else {
+    return 1;
+  }
+}
+
 const ORDER_CHOCOLATES = {
   marca: orderByBrand,
   nombre: orderByName,
   mayor: orderByHighest,
   menor: filterByMinor,
+  fav: filterByFav,
 };
 
 export const useFiltersChocolates = () => {

@@ -7,7 +7,6 @@ import { AuthContext } from "../context/AuthContext";
 import { AlertsContext } from "../context/AlertsContext";
 
 const redirecByRole = ({ navigate, rol }) => {
-  console.log(rol);
   if (rol === "usuario") {
     navigate("/");
     return;

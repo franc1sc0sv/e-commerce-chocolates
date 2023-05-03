@@ -1,14 +1,45 @@
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { useChocolates } from "../hooks/useChocolates";
+
+import { alternarChocolateFav } from "../api/chocolates";
 
 export const CardChocolate = ({ datos }) => {
-  const { id, nombre, precio, marca } = datos;
+  const { chocolates, setChocolates, setFavorites } = useChocolates();
+  const { user } = useContext(AuthContext);
+
+  const { id, nombre, precio, marca, favorite } = datos;
+
+  const handleClick = async () => {
+    const data = await alternarChocolateFav({ id });
+
+    const newFavoritesChocolates = await setFavorites({ chocolates });
+
+    setChocolates(newFavoritesChocolates);
+  };
+
   return (
     <>
       <div className="border border-gray-200 rounded-lg  grid items-center max-w-[270px] gap-2 p-4 text-primary h-[420px]">
         <div className="relative w-full max-w-[270px] aspect-square h-36 bg-gray-300 rounded-lg">
-          <FavoriteBorderOutlinedIcon className="absolute cursor-pointer right-3 top-3" />
+          {user.id && (
+            <>
+              {favorite ? (
+                <FavoriteOutlinedIcon
+                  onClick={handleClick}
+                  className="absolute cursor-pointer right-3 top-3"
+                />
+              ) : (
+                <FavoriteBorderOutlinedIcon
+                  onClick={handleClick}
+                  className="absolute cursor-pointer right-3 top-3"
+                />
+              )}
+            </>
+          )}
         </div>
         <h2 className="text-xl font-bold break-all">{nombre}</h2>
         <p className="text-sm font-light break-all font-SourceCodePro">

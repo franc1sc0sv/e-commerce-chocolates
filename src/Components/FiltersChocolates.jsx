@@ -7,12 +7,15 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
 import { useFiltersChocolates } from "../hooks/useFiltersChocolates";
-
+import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
 function valuetext(value) {
   return `${value}°C`;
 }
 
 export const FiltersChocolates = () => {
+  const { user } = useContext(AuthContext);
+
   const {
     order,
     valuePrice,
@@ -86,6 +89,8 @@ export const FiltersChocolates = () => {
           </MenuItem>
           <MenuItem value="marca">Por marca</MenuItem>
           <MenuItem value="nombre">Por nombre</MenuItem>
+          {user.id && <MenuItem value="fav">Por favoritos</MenuItem>}
+
           <MenuItem value="mayor">
             Por precio <ArrowUpwardIcon className="text-secundary" />
           </MenuItem>
@@ -136,87 +141,6 @@ export const FiltersChocolates = () => {
           Resetear filtros
         </button>
       </div>
-      {/*Marcas */}
-
-      {/* <div className="flex flex-col justify-start w-full gap-5">
-        <p className="text-lg font-bold ">Marca:</p>
-
-        <div className="flex flex-col gap-3">
-          <div className="flex items-center justify-between w-full">
-            <div className="flex items-center gap-2">
-              <input
-                id="checkbox"
-                type="checkbox"
-                value=""
-                class="form-checkbox w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded"
-              />
-
-              <label
-                for="checkbox"
-                class="text-sm font-semibold text-[#737373]"
-              >
-                Nestle
-              </label>
-            </div>
-            <p className="text-sm font-semibold text-[#737373]">10</p>
-          </div>
-
-          <div className="flex items-center justify-between w-full">
-            <div className="flex items-center gap-2">
-              <input
-                id="checkbox"
-                checked
-                type="checkbox"
-                value=""
-                class="form-checkbox w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded"
-              />
-
-              <label for="checkbox" class="text-sm font-semibold text-primary">
-                Nestle
-              </label>
-            </div>
-            <p className="text-sm font-semibold text-primary">10</p>
-          </div>
-
-          <div className="flex items-center justify-between w-full">
-            <div className="flex items-center gap-2">
-              <input
-                id="checkbox"
-                type="checkbox"
-                value=""
-                class="form-checkbox w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded"
-              />
-
-              <label
-                for="checkbox"
-                class="text-sm font-semibold text-[#737373]"
-              >
-                Nestle
-              </label>
-            </div>
-            <p className="text-sm font-semibold text-[#737373]">10</p>
-          </div>
-
-          <div className="flex items-center justify-between w-full">
-            <div className="flex items-center gap-2">
-              <input
-                id="checkbox"
-                type="checkbox"
-                value=""
-                class="form-checkbox w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded"
-              />
-
-              <label
-                for="checkbox"
-                class="text-sm font-semibold text-[#737373]"
-              >
-                Nestle
-              </label>
-            </div>
-            <p className="text-sm font-semibold text-[#737373]">10</p>
-          </div>
-        </div>
-      </div> */}
     </div>
   );
 };

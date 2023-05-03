@@ -33,7 +33,7 @@ const filterByAmountChoc = ({ cajas, minChocolates }) => {
       })
       .reduce((accumulator, currentValue) => accumulator + currentValue);
 
-    return cantidadChocolates < minChocolates;
+    return cantidadChocolates <= minChocolates;
   });
 };
 
