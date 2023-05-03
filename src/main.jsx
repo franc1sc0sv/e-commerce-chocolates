@@ -12,9 +12,12 @@ import { FeedBack } from "./Pages/FeedBack.jsx";
 import { Carrito } from "./Pages/Carrito";
 import { Registro } from "./Pages/Registro";
 import { Admin } from "./Pages/admin";
+import { CajasCustom } from "./Pages/CajasCustom";
+import { Pago } from "./Pages/Pago";
 
 import { UnprotectedRoute } from "./layout/UnprotectedRoute";
 import { ProtectedRouteAdmin } from "./layout/ProtectedRouteAdmin";
+import { ProtectedRouteUser } from "./layout/ProtectedRouteUser";
 
 import { AuthProvider } from "./context/AuthContext";
 import { AlertsProvider } from "./context/AlertsContext";
@@ -67,12 +70,28 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/cajascustom",
+    element: (
+      <ProtectedRouteUser>
+        <CajasCustom />
+      </ProtectedRouteUser>
+    ),
+  },
+  {
     path: "/feedBack",
     element: <FeedBack />,
   },
   {
     path: "/carrito",
     element: <Carrito />,
+  },
+  {
+    path: "/pago",
+    element: (
+      <ProtectedRouteUser>
+        <Pago />
+      </ProtectedRouteUser>
+    ),
   },
 ]);
 
