@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
@@ -22,16 +21,35 @@ import { ProtectedRouteUser } from "./layout/ProtectedRouteUser";
 import { AuthProvider } from "./context/AuthContext";
 import { AlertsProvider } from "./context/AlertsContext";
 import { FiltersChocolatesProvider } from "./context/FiltersChocolatesContext";
+
 import { FiltersCajasProvider } from "./context/FiltersCajasContext";
+import AdminChocolates from "./Pages/AdminChocolates";
+import AdminAgregarChocolate from "./Pages/AdminAgregarChocolate";
 
 const router = createBrowserRouter([
   {
     path: "/admin",
-    element: (
-      <ProtectedRouteAdmin>
-        <Admin />
-      </ProtectedRouteAdmin>
-    ),
+    element: <ProtectedRouteAdmin />,
+    children: [
+      {
+        index: true,
+        element: <Admin />,
+      },
+
+      {
+        path: "chocolates",
+        children: [
+          {
+            index: true,
+            element: <AdminChocolates />,
+          },
+          {
+            path: "agregar",
+            element: <AdminAgregarChocolate />,
+          },
+        ],
+      },
+    ],
   },
   {
     path: "/",
