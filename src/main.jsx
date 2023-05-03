@@ -10,7 +10,7 @@ import { Cajas } from "./Pages/Cajas.jsx";
 import { FeedBack } from "./Pages/FeedBack.jsx";
 import { Carrito } from "./Pages/Carrito";
 import { Registro } from "./Pages/Registro";
-import { Admin } from "./Pages/admin";
+import Admin from "./Pages/admin";
 import { CajasCustom } from "./Pages/CajasCustom";
 import { Pago } from "./Pages/Pago";
 
