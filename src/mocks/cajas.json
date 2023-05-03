@@ -1,0 +1,66 @@
+[
+  {
+    "id": "1",
+    "nombre": "Caja premium",
+    "precio": "22.75",
+    "id_usuario": "1",
+    "chocolates": [
+      {
+        "id": "1",
+        "nombre": "Barra de chocolate",
+        "precio": "1.25",
+        "imagen": "/imagenes/cd0a1c924f6a52fa4831e89387334c02.jpeg",
+        "marca": "Sneckers",
+        "cantidad": "7"
+      },
+      {
+        "id": "2",
+        "nombre": "Chocolate Premium",
+        "precio": "3.25",
+        "imagen": "/imagenes/8ba2f59b4ee10815d4c2b6716b0fb049.jpeg",
+        "marca": "Premium Chocolate",
+        "cantidad": "7"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "nombre": "Caja Poor",
+    "precio": "16.25",
+    "id_usuario": "1",
+    "chocolates": [
+      {
+        "id": "2",
+        "nombre": "Chocolate Premium",
+        "precio": "3.25",
+        "imagen": "/imagenes/8ba2f59b4ee10815d4c2b6716b0fb049.jpeg",
+        "marca": "Premium Chocolate",
+        "cantidad": "5"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "nombre": "Caja de Pedro",
+    "precio": "6.50",
+    "id_usuario": "2",
+    "chocolates": [
+      {
+        "id": "1",
+        "nombre": "Barra de chocolate",
+        "precio": "1.25",
+        "imagen": "/imagenes/cd0a1c924f6a52fa4831e89387334c02.jpeg",
+        "marca": "Sneckers",
+        "cantidad": "2"
+      },
+      {
+        "id": "2",
+        "nombre": "Chocolate Premium",
+        "precio": "3.25",
+        "imagen": "/imagenes/8ba2f59b4ee10815d4c2b6716b0fb049.jpeg",
+        "marca": "Premium Chocolate",
+        "cantidad": "2"
+      }
+    ]
+  }
+]

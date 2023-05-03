@@ -1,10 +1,9 @@
-import  Header  from "../Components/Header"
+import HomeLayout from "../layout/HomeLayout";
 
 export const Carrito = () => {
-    return (
-        <>
-            <Header />
-            <p>YOU ARE IN CARRITO</p>
-        </>
-    )
-}
+  return (
+    <HomeLayout>
+      <p></p>
+    </HomeLayout>
+  );
+};
