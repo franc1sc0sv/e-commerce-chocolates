@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
@@ -11,7 +10,7 @@ import { Cajas } from "./Pages/Cajas.jsx";
 import { FeedBack } from "./Pages/FeedBack.jsx";
 import { Carrito } from "./Pages/Carrito";
 import { Registro } from "./Pages/Registro";
-import { Admin } from "./Pages/admin";
+import Admin from "./Pages/Admin";
 
 import { UnprotectedRoute } from "./layout/UnprotectedRoute";
 import { ProtectedRouteAdmin } from "./layout/ProtectedRouteAdmin";
@@ -19,15 +18,33 @@ import { ProtectedRouteAdmin } from "./layout/ProtectedRouteAdmin";
 import { AuthProvider } from "./context/AuthContext";
 import { AlertsProvider } from "./context/AlertsContext";
 import { FiltersChocolatesProvider } from "./context/FiltersChocolatesContext";
+import AdminChocolates from "./Pages/AdminChocolates";
+import AdminAgregarChocolate from "./Pages/AdminAgregarChocolate";
 
 const router = createBrowserRouter([
   {
     path: "/admin",
-    element: (
-      <ProtectedRouteAdmin>
-        <Admin />
-      </ProtectedRouteAdmin>
-    ),
+    element: <ProtectedRouteAdmin />,
+    children: [
+      {
+        index: true,
+        element: <Admin />,
+      },
+
+      {
+        path: "chocolates",
+        children: [
+          {
+            index: true,
+            element: <AdminChocolates />
+          },
+          {
+            path: "agregar",
+            element: <AdminAgregarChocolate />
+          }
+        ]
+      },
+    ],
   },
   {
     path: "/",
