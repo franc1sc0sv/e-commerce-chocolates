@@ -21,14 +21,19 @@ import { ProtectedRouteUser } from "./layout/ProtectedRouteUser";
 import { AuthProvider } from "./context/AuthContext";
 import { AlertsProvider } from "./context/AlertsContext";
 import { FiltersChocolatesProvider } from "./context/FiltersChocolatesContext";
-
 import { FiltersCajasProvider } from "./context/FiltersCajasContext";
+
 import AdminChocolates from "./Pages/Admin/chocolates/AdminChocolates";
 import AdminAgregarChocolate from "./Pages/Admin/chocolates/AdminAgregarChocolate";
 import AdminEditarChocolate from "./Pages/Admin/chocolates/AdminEditarChocolate";
 import AdminCaja from "./Pages/Admin/cajas/AdminCaja";
 import AdminAgregarCaja from "./Pages/Admin/cajas/AdminAgregarCaja";
 import AdminEditarCaja from "./Pages/Admin/cajas/AdminEditarCaja";
+
+import { CarritoProvider } from "./context/CarritoContext";
+
+
+
 
 const router = createBrowserRouter([
   {
@@ -140,8 +145,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <AuthProvider>
-    <AlertsProvider>
-      <RouterProvider router={router} />
-    </AlertsProvider>
+    <CarritoProvider>
+      <AlertsProvider>
+        <RouterProvider router={router} />
+      </AlertsProvider>
+    </CarritoProvider>
   </AuthProvider>
 );

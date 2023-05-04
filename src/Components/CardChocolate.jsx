@@ -1,21 +1,36 @@
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
 import { useChocolates } from "../hooks/useChocolates";
 
 import { alternarChocolateFav } from "../api/chocolates";
+import { useCarrito } from "../hooks/useCarrito";
+import { AuthContext } from "../context/AuthContext";
 
 export const CardChocolate = ({ datos }) => {
+  const { id, nombre, precio, marca, favorite } = datos;
+
+  const { isLoading, setProductosInCarrito } = useCarrito();
   const { chocolates, setChocolates, setFavorites } = useChocolates();
   const { user } = useContext(AuthContext);
 
-  const { id, nombre, precio, marca, favorite } = datos;
+  const data = {
+    id: id,
+    precio: precio,
+    nombre: nombre,
+    tipo: "chocolate",
+  };
+
+  const handleClickCarrito = () => {
+    if (isLoading) return;
+    setProductosInCarrito({ data });
+  };
 
   const handleClick = async () => {
     const data = await alternarChocolateFav({ id });
-
     const newFavoritesChocolates = await setFavorites({ chocolates });
 
     setChocolates(newFavoritesChocolates);
@@ -50,27 +65,23 @@ export const CardChocolate = ({ datos }) => {
           <p className="self-start text-4xl font-bold tracking-wider font-Montserrat">
             ${precio}
           </p>
-          <button className="w-full p-1 text-white rounded-full bg-primary">
-            <AddShoppingCartOutlinedIcon className="text-white" />
+          <button
+            className="w-full p-1 text-white rounded-full bg-primary "
+            onClick={handleClickCarrito}
+          >
+            {isLoading ? (
+              <CircularProgress
+                size={20}
+                sx={{
+                  color: "#fff",
+                }}
+              />
+            ) : (
+              <AddShoppingCartOutlinedIcon className="text-white" />
+            )}
           </button>
         </div>
       </div>
     </>
   );
 };
-
-// <div className="flex flex-col gap-2 p-5 rounded-lg shadow-md text-primary h-[420px]">
-//   <div className="relative w-full h-40 bg-[#e0dcdc] rounded-xl">
-//     <FavoriteBorderOutlinedIcon className="absolute cursor-pointer right-3 top-3" />
-//   </div>
-//   <p className="text-2xl font-bold font-SourceCodePro">{nombre}</p>
-//   <p className="text-sm font-light font-SourceCodePro">
-//     {nombre} de la marca {marca}
-//   </p>
-//   <p className="text-4xl font-bold tracking-wider font-Montserrat">
-//     ${precio}
-//   </p>
-//   <button className="grid w-full py-2 rounded-full place-items-center bg-primary">
-//     <AddShoppingCartOutlinedIcon className="text-white" />
-//   </button>
-// </div>

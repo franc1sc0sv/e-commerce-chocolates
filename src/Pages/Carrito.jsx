@@ -4,8 +4,17 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { CarritoContext } from "../context/CarritoContext";
+import { useCarrito } from "../hooks/useCarrito";
 
 export const Carrito = () => {
+  const { productos } = useContext(CarritoContext);
+  const total = productos.reduce(
+    (total, accum) => total + accum.precio * accum.cantidad,
+    0
+  );
+
   return (
     <HomeLayout>
       <div className="flex w-[90%] gap-16 mx-auto my-10">
@@ -23,22 +32,26 @@ export const Carrito = () => {
           </div>
 
           <div className="flex flex-col gap-4">
-            <CardCarritos />
-            <CardCarritos />
-            <CardCarritos />
+            {!productos.length ? (
+              <NoItemsCarrito />
+            ) : (
+              <CardsContainer productos={productos} />
+            )}
           </div>
 
           <p className="self-end text-xl font-bold font-SourceCodePro">
-            Subtotal (1 items): $5.00
+            Subtotal ({productos.length} items): ${total}
           </p>
         </div>
 
         <div className="w-[40%] h-[200px] max-w-[490px] bg-gray-300 rounded-lg p-5 flex flex-col gap-2 justify-center">
           <div className="flex items-center justify-between w-full">
             <p className="text-lg font-bold font-SourceCodePro">
-              Subtotal (1 items)
+              Subtotal ({productos.length} items)
             </p>
-            <p className="text-6xl font-extrabold font-SourceCodePro">$5.00</p>
+            <p className="text-6xl font-extrabold font-SourceCodePro">
+              ${total}
+            </p>
           </div>
           <Link
             to="/pago"
@@ -52,27 +65,49 @@ export const Carrito = () => {
   );
 };
 
-const CardCarritos = () => {
+const CardsContainer = ({ productos }) => {
+  return productos.map((producto, i) => {
+    return <CardCarritos key={i} data={producto} />;
+  });
+};
+
+const CardCarritos = ({ data }) => {
+  const { minusProduct, plusProduct, deleteProduct } = useCarrito();
+
+  const { id, precio, nombre, cantidad, tipo } = data;
+
+  const handleMinus = () => {
+    minusProduct({ id, tipo });
+  };
+
+  const handlePlus = () => {
+    plusProduct({ id, tipo });
+  };
+
+  const handleDelete = () => {
+    deleteProduct({ id, tipo });
+  };
   return (
     <div className="flex p-5 rounded-lg gap-14 w- h-max bg-borderInputs">
       <div className=" w-full max-w-[270px] aspect-square h-36 bg-gray-300 rounded-lg"></div>
       <div className="w-full h-auto py-4">
         <div className="flex justify-between">
-          <p className="text-xl font-bold font-SourceCodePro">
-            Tus cajas de chocolates
-          </p>
+          <p className="text-xl font-bold font-SourceCodePro">{nombre}</p>
 
-          <p className="text-3xl font-bold font-SourceCodePro">$2.50 </p>
+          <p className="text-3xl font-bold font-SourceCodePro">${precio} </p>
         </div>
 
         <div className="flex gap-2">
           <div className=" flex w-40 justify-evenly text-lg gap-3 border border-primary text-center  py-[10px] rounded font-Outfit bg-white ">
-            <RemoveIcon />
-            <p className="font-bold">1</p>
-            <AddIcon />
+            <RemoveIcon className="cursor-pointer" onClick={handleMinus} />
+            <p className="font-bold">{cantidad}</p>
+            <AddIcon className="cursor-pointer" onClick={handlePlus} />
           </div>
 
-          <div className=" flex items-center text-lg gap-1 border text-center  py-[10px] rounded font-Outfit cursor-pointer ">
+          <div
+            onClick={handleDelete}
+            className=" flex items-center text-lg gap-1 border text-center  py-[10px] rounded font-Outfit cursor-pointer "
+          >
             <DeleteOutlineOutlinedIcon />
             Eliminar
           </div>
@@ -80,4 +115,8 @@ const CardCarritos = () => {
       </div>
     </div>
   );
+};
+
+const NoItemsCarrito = () => {
+  return <p>No tienen nigun item agregado</p>;
 };

@@ -9,8 +9,11 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { CarritoContext } from "../context/CarritoContext";
 
 export default function Header() {
+  const { productos } = useContext(CarritoContext);
+  const cantidad = productos.length;
   const navigate = useNavigate();
   const { user, setUser } = useContext(AuthContext);
   const isLoged = user.id;
@@ -83,7 +86,12 @@ export default function Header() {
           to={"/carrito"}
           className=" items-center flex gap-3 border border-primary w-fit px-4 py-[10px] rounded font-Outfit text-primary font-medium hover:bg-primary hover:text-white duration-[500ms] ease-in-out relative group"
         >
-          {/* <div className="absolute top-[6px] left-8 rounded-full bg-primary font-SourceCodePro text-[12px] h-[18px] w-[18px] grid place-items-center text-white group-hover:bg-white group-hover:text-primary">+9</div> */}
+          {cantidad > 0 && (
+            <div className="absolute top-[6px] left-8 rounded-full bg-primary font-SourceCodePro text-[12px] h-[18px] w-[18px] grid place-items-center text-white group-hover:bg-white group-hover:text-primary">
+              {cantidad > 9 ? "+9" : cantidad}
+            </div>
+          )}
+
           <ShoppingCartOutlinedIcon />
           <p className="text-lg">Carrito</p>
         </NavLink>

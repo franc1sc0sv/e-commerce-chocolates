@@ -7,7 +7,7 @@ export const ProtectedRouteUser = ({ children }) => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // if (user.rol === undefined) return <p>loading</p>;
+  if (user.rol === undefined) return;
   useEffect(() => {
     if (user.rol !== "usuario") {
       navigate("/");

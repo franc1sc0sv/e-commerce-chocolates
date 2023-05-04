@@ -1,9 +1,23 @@
-import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
+import { useCarrito } from "../hooks/useCarrito";
+import { CircularProgress } from "@mui/material";
 
 export const CajasCard = ({ datos }) => {
+  const { isLoading, setProductosInCarrito } = useCarrito();
   const { id, nombre, precio, chocolates } = datos;
+
+  const data = {
+    id: id,
+    precio: precio,
+    nombre: nombre,
+    tipo: "caja",
+  };
+
+  const handleClickCarrito = () => {
+    if (isLoading) return;
+    setProductosInCarrito({ data });
+  };
+
   return (
     <>
       <div className="border border-gray-200 rounded-lg  grid items-center max-w-[270px] gap-2 p-4 text-primary h-[420px]">
@@ -25,8 +39,20 @@ export const CajasCard = ({ datos }) => {
           <p className="self-start text-4xl font-bold tracking-wider font-Montserrat">
             ${precio}
           </p>
-          <button className="w-full p-1 text-white rounded-full bg-primary">
-            <AddShoppingCartOutlinedIcon className="text-white" />
+          <button
+            className="w-full p-1 text-white rounded-full bg-primary"
+            onClick={handleClickCarrito}
+          >
+            {isLoading ? (
+              <CircularProgress
+                size={20}
+                sx={{
+                  color: "#fff",
+                }}
+              />
+            ) : (
+              <AddShoppingCartOutlinedIcon className="text-white" />
+            )}
           </button>
         </div>
       </div>
