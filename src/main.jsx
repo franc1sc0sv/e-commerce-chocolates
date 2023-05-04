@@ -10,7 +10,7 @@ import { Cajas } from "./Pages/Cajas.jsx";
 import { FeedBack } from "./Pages/FeedBack.jsx";
 import { Carrito } from "./Pages/Carrito";
 import { Registro } from "./Pages/Registro";
-import Admin from "./Pages/admin";
+import Admin from "./Pages/Admin/Admin";
 import { CajasCustom } from "./Pages/CajasCustom";
 import { Pago } from "./Pages/Pago";
 
@@ -22,10 +22,18 @@ import { AuthProvider } from "./context/AuthContext";
 import { AlertsProvider } from "./context/AlertsContext";
 import { FiltersChocolatesProvider } from "./context/FiltersChocolatesContext";
 import { FiltersCajasProvider } from "./context/FiltersCajasContext";
+
+import AdminChocolates from "./Pages/Admin/chocolates/AdminChocolates";
+import AdminAgregarChocolate from "./Pages/Admin/chocolates/AdminAgregarChocolate";
+import AdminEditarChocolate from "./Pages/Admin/chocolates/AdminEditarChocolate";
+import AdminCaja from "./Pages/Admin/cajas/AdminCaja";
+import AdminAgregarCaja from "./Pages/Admin/cajas/AdminAgregarCaja";
+import AdminEditarCaja from "./Pages/Admin/cajas/AdminEditarCaja";
+
 import { CarritoProvider } from "./context/CarritoContext";
 
-import AdminChocolates from "./Pages/AdminChocolates";
-import AdminAgregarChocolate from "./Pages/AdminAgregarChocolate";
+
+
 
 const router = createBrowserRouter([
   {
@@ -48,6 +56,27 @@ const router = createBrowserRouter([
             path: "agregar",
             element: <AdminAgregarChocolate />,
           },
+          {
+            path: "editar/:id",
+            element: <AdminEditarChocolate />
+          }
+        ],
+      },
+      {
+        path: "caja-chocolate",
+        children: [
+          {
+            index: true,
+            element: <AdminCaja />,
+          },
+          {
+            path: "agregar",
+            element: <AdminAgregarCaja />,
+          },
+          {
+            path: "editar/:id",
+            element: <AdminEditarCaja />
+          }
         ],
       },
     ],

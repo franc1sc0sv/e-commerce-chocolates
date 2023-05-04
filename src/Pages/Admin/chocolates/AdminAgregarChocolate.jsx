@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
-import { useApiConfig } from "../hooks/useApiConfig";
-import { useEffect, useState } from "react";
-import { axiosClient } from "../config/axiosClient";
-import ButtonLink from "../Components/ButtonLink";
+import { useApiConfig } from "../../../hooks/useApiConfig";
+import { useState } from "react";
+import { axiosClient } from "../../../config/axiosClient";
+import ButtonLink from "../../../Components/ButtonLink";
 
 const AdminAgregarChocolate = () => {
   const config = useApiConfig();
