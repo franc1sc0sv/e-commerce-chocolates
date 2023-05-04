@@ -23,8 +23,6 @@ export const IniciarSesion = () => {
 };
 
 const Formulario = () => {
-  const { setOpen, setSeverity, setMessage } = useContext(AlertsContext);
-
   const { handleSubmit, control } = useForm();
 
   const { error, isLoading, loginProcess } = useLogin();

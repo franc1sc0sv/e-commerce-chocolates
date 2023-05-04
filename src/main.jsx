@@ -21,8 +21,9 @@ import { ProtectedRouteUser } from "./layout/ProtectedRouteUser";
 import { AuthProvider } from "./context/AuthContext";
 import { AlertsProvider } from "./context/AlertsContext";
 import { FiltersChocolatesProvider } from "./context/FiltersChocolatesContext";
-
 import { FiltersCajasProvider } from "./context/FiltersCajasContext";
+import { CarritoProvider } from "./context/CarritoContext";
+
 import AdminChocolates from "./Pages/AdminChocolates";
 import AdminAgregarChocolate from "./Pages/AdminAgregarChocolate";
 
@@ -115,8 +116,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <AuthProvider>
-    <AlertsProvider>
-      <RouterProvider router={router} />
-    </AlertsProvider>
+    <CarritoProvider>
+      <AlertsProvider>
+        <RouterProvider router={router} />
+      </AlertsProvider>
+    </CarritoProvider>
   </AuthProvider>
 );
