@@ -12,8 +12,10 @@ export const realizarCompra = async ({ chocolatesFinales, cajasFinales }) => {
 
   const { data } = await axiosClient.post(
     "comprar",
-    chocolatesFinales,
-    cajasFinales,
+    {
+      chocolates: chocolatesFinales,
+      cajas: cajasFinales
+    },
     configHeaders
   );
   return data;

@@ -15,6 +15,7 @@ export const ProtectedRouteAdmin = ({ children }) => {
       return;
     }
   }, []);
+  
   return (
     <>
       <header className="bg-primary flex justify-between items-center text-white p-4">

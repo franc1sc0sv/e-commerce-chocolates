@@ -10,10 +10,11 @@ import { useCarrito } from "../hooks/useCarrito";
 
 export const Carrito = () => {
   const { productos } = useContext(CarritoContext);
+ 
   const total = productos.reduce(
     (total, accum) => total + accum.precio * accum.cantidad,
     0
-  );
+  ).toLocaleString('es', { currency: 'USD' });
 
   return (
     <HomeLayout>
@@ -49,7 +50,7 @@ export const Carrito = () => {
             <p className="text-lg font-bold font-SourceCodePro">
               Subtotal ({productos.length} items)
             </p>
-            <p className="text-6xl font-extrabold font-SourceCodePro">
+            <p className="text-4xl font-extrabold font-SourceCodePro">
               ${total}
             </p>
           </div>

@@ -1,18 +1,31 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { ConstructionOutlined } from "@mui/icons-material";
 
 export const ProtectedRouteUser = ({ children }) => {
   const { user } = useContext(AuthContext);
+  const [noUsuario, setUsuario] = useState(false);
   const navigate = useNavigate();
 
-  if (user.rol === undefined) return;
+
   useEffect(() => {
-    if (user.rol !== "usuario") {
-      navigate("/");
-      return;
+    if (!user.id) {
+      setUsuario(true);
     }
-  }, []);
+
+    if (user.rol !== "usuario") {
+      setUsuario(true);
+    }
+
+    if(noUsuario){
+      navigate("/");
+    }
+
+  }, [noUsuario])
+
+
+
+
+
   return <>{children}</>;
 };
