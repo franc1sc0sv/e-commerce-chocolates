@@ -29,8 +29,7 @@ export const FeedBack = () => {
   });
 
   const succesSubmit = (datos) => {
-    feedProceso({ datos });
-    reset();
+    feedProceso({ datos, reset });
   };
 
   useEffect(() => {

@@ -23,6 +23,7 @@ export const IniciarSesion = () => {
 };
 
 const Formulario = () => {
+  const {setOpen,setMessage,setSeverity} = useContext(AlertsContext)
   const { handleSubmit, control } = useForm();
 
   const { error, isLoading, loginProcess } = useLogin();
@@ -62,7 +63,7 @@ const Formulario = () => {
 const NoTienesCuenta = () => {
   return (
     <p className="text-sm font-light font-Inter text-secundary">
-      Si no tienes una cuenta{" "}
+      Si no tienes una cuenta
       <Link to={"/registro"} className="font-medium text-primary">
         registrate
       </Link>

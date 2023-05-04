@@ -9,14 +9,23 @@ export const useFeed = () => {
   const [isLoading, setIsLoading] = useState();
   const [error, setError] = useState();
 
-  const feedProceso = useCallback(async ({ datos }) => {
+  const waiting = ({reset}) => {
+    setTimeout(() => {
+      setIsLoading(false);
+      reset()
+      setOpen(true);
+      setMessage("Valoracion agregada exitosamente");
+      setSeverity("success");
+
+    }, 1000);
+  };
+
+
+  const feedProceso = useCallback(async ({ datos, reset }) => {
     setIsLoading(true);
     try {
       const data = await setFeed({ datos });
-
-      setOpen(true);
-      setMessage("Se ha registrado su opinion correctamente");
-      setSeverity("success");
+      waiting({reset})
     } catch ({ response }) {
       setError(response.data.message);
     } finally {
