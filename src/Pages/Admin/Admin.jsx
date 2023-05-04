@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-// import {BiUserCircle} from "react-icons/bi";
-import "../styles/background_gray.css";
+import {BiUserCircle} from "react-icons/bi";
+import "../../styles/background_gray.css";
 import { useContext, useEffect, useState } from "react";
-import { axiosClient } from "../config/axiosClient";
-import { AuthContext } from "../context/AuthContext";
-import ButtonLink from "../Components/ButtonLink";
+import { axiosClient } from "../../config/axiosClient";
+import { AuthContext } from "../../context/AuthContext";
+import ButtonLink from "../../Components/ButtonLink";
+import { Box } from "../../Components/Box";
 
 export default function Admin() {
   const { user } = useContext(AuthContext);
@@ -69,6 +70,3 @@ const FeedBackUser = ({ nombre, rating, comentario }) => {
   );
 };
 
-const Box = ({ children }) => {
-  return <div className="w-full p-6 bg-white rounded-lg">{children}</div>;
-};

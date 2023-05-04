@@ -1,7 +1,6 @@
 import { useContext, useEffect } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import HeaderAdmin from "../Components/HeaderAdmin";
 
 export const ProtectedRouteAdmin = ({ children }) => {
   const { user } = useContext(AuthContext);
@@ -19,15 +18,19 @@ export const ProtectedRouteAdmin = ({ children }) => {
   return (
     <>
       <header className="bg-primary flex justify-between items-center text-white p-4">
-        <Link  
-          className="font-bold text-2xl"
-          to={"/admin"}>
+        <Link className="font-bold text-2xl" to={"/admin"}>
           <h2>Chocolateria Admin</h2>
         </Link>
 
-        <Link
-          className="underline" 
-          to={"/admin/chocolates"}>Chocolates</Link>
+        <div className="flex gap-3">
+          <Link className="underline" to={"/admin/chocolates"}>
+            Chocolates
+          </Link>
+
+          <Link className="underline" to={"/admin/caja-chocolate"}>
+            Cajas de chocolates
+          </Link>
+        </div>
       </header>
       <main className="flex flex-col items-center p-4 gap-4">
         <Outlet />
