@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
-import {BiUserCircle} from "react-icons/bi";
-import "../../styles/background_gray.css";
+import { BiUserCircle } from "react-icons/bi";
 import { useContext, useEffect, useState } from "react";
 import { axiosClient } from "../../config/axiosClient";
 import { AuthContext } from "../../context/AuthContext";
@@ -69,4 +67,3 @@ const FeedBackUser = ({ nombre, rating, comentario }) => {
     </div>
   );
 };
-

@@ -1,9 +1,13 @@
-import HomeLayout from "../layout/HomeLayout";
-import Chocolate from "../Components/Chocolate";
-import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
+import HomeLayout from "../layout/HomeLayout";
+import Carousel from "react-multi-carousel";
+import { CardChocolate } from "../Components/cardChocolate";
+import { useChocolates } from "../hooks/useChocolates";
+
 export const Inicio = () => {
+  const { chocolates } = useChocolates();
+
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -22,52 +26,21 @@ export const Inicio = () => {
     },
   };
 
-  const caja = [
-    <Chocolate
-      imagen={"Chocolates/hersheys_milk_chocolate.webp"}
-      nombre={"Hersheys Barra Milk 43 Gr"}
-      precio={"1.30"}
-    />,
-
-    <Chocolate
-      imagen={"Chocolates/hersheys_whole_almonds.webp"}
-      nombre={"Chocolate Hersheys Milk Almond 41Gr"}
-      precio={"1.30"}
-    />,
-
-    <Chocolate
-      imagen={"Chocolates/kitkat.webp"}
-      nombre={"Chocolate Kit Kat 4finger 41gr"}
-      precio={"1.19"}
-    />,
-    <Chocolate
-      imagen={"Chocolates/m&ms.webp"}
-      nombre={"Chocolate M&M's Milk Paquete 47.9gr"}
-      precio={"1.25"}
-    />,
-
-    <Chocolate
-      imagen={"Chocolates/snickers.webp"}
-      nombre={"Chocolate Con Maní Snickers 1.86oz"}
-      precio={"1.30"}
-    />,
-  ];
-
   return (
     <HomeLayout>
-      <div className=" flex flex-col items-center w-full mb-6">
-        <div className=" relative w-full">
-          <p className=" font-SourceCodePro font-bold text-white absolute z-10 top-1/2 -translate-y-1/2 text-6xl w-full text-center">
+      <div className="flex flex-col items-center w-full mb-6 ">
+        <div className="relative w-full ">
+          <p className="absolute z-10 w-full text-6xl font-bold text-center text-white -translate-y-1/2 font-SourceCodePro top-1/2">
             Los negros siempre son los mejores
           </p>
           <img
             src="/chocolatoso.png"
             alt=""
-            className=" w-full h-96 object-cover "
+            className="object-cover w-full h-96"
           />
-          <div className=" bg-black top-0 right-0 left-0 bottom-0 absolute opacity-50"></div>
+          <div className="absolute top-0 bottom-0 left-0 right-0 bg-black opacity-50 "></div>
         </div>
-        <p className=" font-extrabold font-Outfit text-4xl mt-8 mb-8">
+        <p className="mt-8 mb-8 text-4xl font-extrabold font-Outfit">
           Nuestros mejores productos
         </p>
         <div className=" w-[80%] ">
@@ -79,11 +52,9 @@ export const Inicio = () => {
             ssr={true}
             centerMode={true}
           >
-            <div> {caja[0]} </div>
-            <div> {caja[1]} </div>
-            <div> {caja[2]} </div>
-            <div> {caja[3]} </div>
-            <div> {caja[4]} </div>
+            {chocolates.slice(3).map((chocolate) => {
+              return <CardChocolate key={chocolate.id} datos={chocolate} />;
+            })}
           </Carousel>
         </div>
       </div>

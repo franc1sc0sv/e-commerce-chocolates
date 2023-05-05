@@ -1,16 +1,17 @@
-import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded';
+import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRounded";
 
-
-export default function Chocolate({ imagen, nombre, precio, car }) {
+export default function Chocolate({ imagen, nombre, precio }) {
   return (
-    <div className="shadow-md border max-w-[300px] rounded-xl flex flex-col items-center p-4">
+    <div className="shadow-md border max-w-[300px] rounded-xl flex flex-col items-center p-4 h-full justify-between">
       <img width={250} height={300} src={imagen} alt="" />
 
       <div>
-        <p className="font-bold text-xl">{nombre}</p>
-        <p className="font-bold text-2xl">${precio}</p>
+        <p className="text-xl font-bold">{nombre}</p>
+        <p className="text-2xl font-bold">${precio}</p>
       </div>
-      <button className=' bg-bgInputs w-full rounded h-full p-1 mt-2 mb-2 border-primary hover:bg-primary duration-[500ms] ease-in-out hover:text-white border-[1px]'> <AddShoppingCartRoundedIcon/> </button>
+      <button className=" h-max bg-bgInputs w-full rounded p-1 mt-2 mb-2 border-primary hover:bg-primary duration-[500ms] ease-in-out hover:text-white border-[1px]">
+        <AddShoppingCartRoundedIcon />
+      </button>
     </div>
   );
 }

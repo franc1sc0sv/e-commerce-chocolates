@@ -22,6 +22,8 @@ import { AuthProvider } from "./context/AuthContext";
 import { AlertsProvider } from "./context/AlertsContext";
 import { FiltersChocolatesProvider } from "./context/FiltersChocolatesContext";
 import { FiltersCajasProvider } from "./context/FiltersCajasContext";
+import UserAgregarCaja from "./Components/userAgregarCaja";
+import UserEditarCaja from "./Components/userEditarCaja";
 
 import AdminChocolates from "./Pages/Admin/chocolates/AdminChocolates";
 import AdminAgregarChocolate from "./Pages/Admin/chocolates/AdminAgregarChocolate";
@@ -31,9 +33,6 @@ import AdminAgregarCaja from "./Pages/Admin/cajas/AdminAgregarCaja";
 import AdminEditarCaja from "./Pages/Admin/cajas/AdminEditarCaja";
 
 import { CarritoProvider } from "./context/CarritoContext";
-
-
-
 
 const router = createBrowserRouter([
   {
@@ -58,8 +57,8 @@ const router = createBrowserRouter([
           },
           {
             path: "editar/:id",
-            element: <AdminEditarChocolate />
-          }
+            element: <AdminEditarChocolate />,
+          },
         ],
       },
       {
@@ -75,15 +74,42 @@ const router = createBrowserRouter([
           },
           {
             path: "editar/:id",
-            element: <AdminEditarCaja />
-          }
+            element: <AdminEditarCaja />,
+          },
         ],
       },
     ],
   },
   {
+    path: "/cajascustom",
+    element: (
+      <FiltersCajasProvider>
+        <ProtectedRouteUser />
+      </FiltersCajasProvider>
+    ),
+    children: [
+      {
+        index: true,
+        element: <CajasCustom />,
+      },
+      {
+        path: "agregar",
+        element: <UserAgregarCaja />,
+      },
+
+      {
+        path: "editar/:id",
+        element: <UserEditarCaja />,
+      },
+    ],
+  },
+  {
     path: "/",
-    element: <Inicio />,
+    element: (
+      <FiltersChocolatesProvider>
+        <Inicio />
+      </FiltersChocolatesProvider>
+    ),
   },
   {
     path: "/iniciarSesion",
@@ -115,14 +141,6 @@ const router = createBrowserRouter([
       <FiltersCajasProvider>
         <Cajas />
       </FiltersCajasProvider>
-    ),
-  },
-  {
-    path: "/cajascustom",
-    element: (
-      <ProtectedRouteUser>
-        <CajasCustom />
-      </ProtectedRouteUser>
     ),
   },
   {

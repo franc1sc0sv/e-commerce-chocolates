@@ -65,11 +65,11 @@ export default function Header() {
       </div>
       <div className="flex justify-end w-full gap-4">
         {isLoged ? (
-          <div className="flex gap-2 justify-center items-center">
+          <div className="flex items-center justify-center gap-2">
             <MenuUsuario cerarrSesion={cerarrSesion} />
 
             <div></div>
-            <p className=" font-Outfit font-medium text-primary text-lg">
+            <p className="text-lg font-medium  font-Outfit text-primary">
               {user.nombre}
             </p>
           </div>
@@ -102,9 +102,9 @@ export default function Header() {
 
 function MenuUsuario({ cerarrSesion }) {
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className="relative z-50 inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center rounded-full p-1 bg-opacity-20 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 hover:bg-progresiveBar transition-all ease-in-out duration-200">
+        <Menu.Button className="inline-flex justify-center w-full p-1 text-sm font-medium text-white transition-all duration-200 ease-in-out rounded-full bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 hover:bg-progresiveBar">
           <AccountCircleOutlinedIcon
             className=" text-primary !text-[45px]"
             fontSize="large"
@@ -120,7 +120,7 @@ function MenuUsuario({ cerarrSesion }) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-0 w-56 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="px-1 py-1">
             <Menu.Item
               onClick={() => {
@@ -129,9 +129,9 @@ function MenuUsuario({ cerarrSesion }) {
             >
               <Link
                 to="/"
-                className=" group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                className="flex items-center w-full px-2 py-2 text-sm rounded-md  group"
               >
-                <LogoutIcon className="mr-2 h-5 w-5 text-primary" />
+                <LogoutIcon className="w-5 h-5 mr-2 text-primary" />
                 Cerrar sesion
               </Link>
             </Menu.Item>

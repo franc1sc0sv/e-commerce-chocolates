@@ -1,12 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
-export const ProtectedRouteUser = ({ children }) => {
+export const ProtectedRouteUser = () => {
   const { user } = useContext(AuthContext);
   const [noUsuario, setUsuario] = useState(false);
   const navigate = useNavigate();
-
 
   useEffect(() => {
     if (!user.id) {
@@ -17,15 +16,16 @@ export const ProtectedRouteUser = ({ children }) => {
       setUsuario(true);
     }
 
-    if(noUsuario){
+    if (noUsuario) {
       navigate("/");
     }
+  }, [noUsuario]);
 
-  }, [noUsuario])
-
-
-
-
-
-  return <>{children}</>;
+  return (
+    <>
+      <main className="flex flex-col items-center gap-4 p-4">
+        <Outlet />
+      </main>
+    </>
+  );
 };

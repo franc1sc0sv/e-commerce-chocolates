@@ -1,29 +1,45 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export const ProtectedRouteAdmin = ({ children }) => {
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
+  const [noUsuario, setUsuario] = useState(false);
+
   const navigate = useNavigate();
 
-  if (user.rol === undefined) return <p>loading</p>;
+  const cerarrSesion = () => {
+    window.localStorage.removeItem("tokenEcommerce");
+    setUser({});
+    navigate("/");
+  };
 
   useEffect(() => {
-    console.log(user.rol);
-    if (user.rol !== "admin") {
-      navigate("/");
-      return;
+    if (!user.id) {
+      setUsuario(true);
     }
-  }, []);
-  
+
+    if (user.rol !== "admin") {
+      setUsuario(true);
+    }
+
+    if (noUsuario) {
+      navigate("/");
+    }
+  }, [noUsuario]);
+
   return (
     <>
-      <header className="bg-primary flex justify-between items-center text-white p-4">
-        <Link className="font-bold text-2xl" to={"/admin"}>
+      <header className="flex items-center justify-between p-4 text-white bg-primary">
+        <Link className="text-2xl font-bold" to={"/admin"}>
           <h2>Chocolateria Admin</h2>
         </Link>
 
         <div className="flex gap-3">
+          <button className="underline" onClick={cerarrSesion}>
+            Cerrar sesion
+          </button>
+
           <Link className="underline" to={"/admin/chocolates"}>
             Chocolates
           </Link>
@@ -33,7 +49,7 @@ export const ProtectedRouteAdmin = ({ children }) => {
           </Link>
         </div>
       </header>
-      <main className="flex flex-col items-center p-4 gap-4">
+      <main className="flex flex-col items-center gap-4 p-4">
         <Outlet />
       </main>
     </>
