@@ -9,9 +9,10 @@ import { axiosClient } from "../config/axiosClient";
 
 import HomeLayout from "../layout/HomeLayout";
 import { CarritoContext } from "../context/CarritoContext";
+import { saveCarritoStorage } from "../functions/storageCarrito";
 
 export const CajasCustom = () => {
-  const { setProductos } = useContext(CarritoContext);
+  const { productos, setProductos } = useContext(CarritoContext);
   const config = useApiConfig();
   const [cajas, setCajas] = useState([]);
 
@@ -56,6 +57,7 @@ export const CajasCustom = () => {
             setCajas={setCajas}
             id={id}
             hideModal={hideModal}
+            productos={productos}
           />
         )}
       </main>
@@ -110,14 +112,26 @@ const CajaField = ({ caja, showModal }) => {
   );
 };
 
-const ModalEliminar = ({ cajas, id, hideModal, setCajas, setProductos }) => {
+const ModalEliminar = ({
+  cajas,
+  id,
+  hideModal,
+  setCajas,
+  setProductos,
+  productos,
+}) => {
   const [loading, setLoading] = useState(false);
   const config = useApiConfig();
 
   const deleteChocolate = async () => {
     setLoading(true);
     await axiosClient.delete("cajas-chocolate/" + id, config);
+    const cajasCarrito = productos.filter(
+      (producto) => !(producto.id === id && producto.tipo === "caja")
+    );
     setCajas(cajas.filter((caja) => caja.id !== id));
+    setProductos(cajasCarrito);
+    saveCarritoStorage({ data: cajasCarrito });
     hideModal(false);
   };
 

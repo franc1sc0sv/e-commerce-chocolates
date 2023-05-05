@@ -1,5 +1,5 @@
 import { Controller, useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import ButtonLink from "./ButtonLink";
 import { useApiConfig } from "../hooks/useApiConfig";
@@ -9,13 +9,15 @@ import { Autocomplete, TextField } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 
 import HomeLayout from "../layout/HomeLayout";
+import { CarritoContext } from "../context/CarritoContext";
+import { saveCarritoStorage } from "../functions/storageCarrito";
 
 const UserEditarCaja = () => {
   const config = useApiConfig();
   const { id } = useParams();
   const navigate = useNavigate();
+  const { productos, setProductos } = useContext(CarritoContext);
   const { register, handleSubmit, control, setValue, reset } = useForm();
-
   const [caja, setCaja] = useState({});
 
   const [loading, setLoading] = useState(false);
@@ -33,7 +35,23 @@ const UserEditarCaja = () => {
 
     try {
       setLoading(true);
-      await axiosClient.put("cajas-chocolate/" + id, e, config);
+      const { data } = await axiosClient.put(
+        "cajas-chocolate/" + id,
+        e,
+        config
+      );
+
+      const newCarritoUpdatePrice = productos.map((producto) => {
+        if (producto.id === data.id && producto.tipo === "caja") {
+          producto.precio = data.precio;
+        }
+        return producto;
+      });
+      console.log(data);
+      console.log(newCarritoUpdatePrice);
+
+      setProductos(newCarritoUpdatePrice);
+      saveCarritoStorage({ data: newCarritoUpdatePrice });
       setLoading(false);
       setExito(true);
     } catch (error) {

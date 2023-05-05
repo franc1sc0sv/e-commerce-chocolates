@@ -8,6 +8,8 @@ import MenuItem from "@mui/material/MenuItem";
 
 import { useFiltersCajas } from "../hooks/useFiltersCajas";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 function valuetext(value) {
   return `${value}°C`;
@@ -25,6 +27,8 @@ export const FiltersCajas = () => {
     setMinChocolates,
     handleClickReset,
   } = useFiltersCajas();
+
+  const { user } = useContext(AuthContext);
 
   const handleChangeSelect = (event) => {
     setOrder(event.target.value);
@@ -180,12 +184,14 @@ export const FiltersCajas = () => {
 
       {/* Cajas */}
 
-      <Link
-        to={"/cajascustom"}
-        className=" w-full py-[10px] text-lg gap-3 border border-primary text-center rounded font-Outfit text-primary font-medium hover:bg-primary hover:text-white duration-[500ms] ease-in-out"
-      >
-        Crear una caja
-      </Link>
+      {user && (
+        <Link
+          to={"/cajascustom"}
+          className=" w-full py-[10px] text-lg gap-3 border border-primary text-center rounded font-Outfit text-primary font-medium hover:bg-primary hover:text-white duration-[500ms] ease-in-out"
+        >
+          Administra tus cajas
+        </Link>
+      )}
     </div>
   );
 };
