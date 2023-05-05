@@ -11,7 +11,7 @@ import { useCarrito } from "../hooks/useCarrito";
 import { AuthContext } from "../context/AuthContext";
 
 export const CardChocolate = ({ datos }) => {
-  const { id, nombre, precio, marca, favorite } = datos;
+  const { id, nombre, precio, marca, favorite, imagen } = datos;
 
   const { isLoading, setProductosInCarrito } = useCarrito();
   const { chocolates, setChocolates, setFavorites } = useChocolates();
@@ -39,7 +39,7 @@ export const CardChocolate = ({ datos }) => {
   return (
     <>
       <div className="border border-gray-200 rounded-lg  grid items-center max-w-[270px] gap-2 p-4 text-primary h-[420px]">
-        <div className="relative w-full max-w-[270px] aspect-square h-36 bg-gray-300 rounded-lg">
+        <div className="relative w-full max-w-[270px]  aspect-square h-36 bg-gray-300 rounded-lg">
           {user.id && (
             <>
               {favorite ? (
@@ -55,6 +55,7 @@ export const CardChocolate = ({ datos }) => {
               )}
             </>
           )}
+          <img src={import.meta.env.VITE_API_URL + imagen} alt={nombre} />
         </div>
         <h2 className="text-xl font-bold break-all">{nombre}</h2>
         <p className="text-sm font-light break-all font-SourceCodePro">
